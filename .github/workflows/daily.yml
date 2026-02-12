@@ -173,7 +173,7 @@ jobs:
           html_parts.append('<p>过去24小时共 <strong>' + str(len(entries)) + '</strong> 条精选</p>')
 
           current = None
-          for e in entries[:15]:
+          for e in entries[:45]:
               if e['source'] != current:
                   current = e['source']
                   html_parts.append('<h2>' + current + '</h2>')
