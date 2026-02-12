@@ -1,0 +1,112 @@
+# Daily Letter 配置文件
+# 修改此文件后需重新运行 GitHub Actions 才能生效
+
+# ==================== 定时设置 ====================
+# Cron 表达式（UTC 时间）
+# 北京时间 = UTC + 8
+# 默认 06:00 UTC = 14:00 北京时间
+schedule:
+  cron: "0 6 * * *"  # 分 时 日 月 星期
+
+# 常用时间参考：
+# "0 1 * * *"  = 北京时间 09:00（早上）
+# "0 6 * * *"  = 北京时间 14:00（下午）★ 默认
+# "0 12 * * *" = 北京时间 20:00（晚上）
+# "0 22 * * *" = 北京时间 06:00（次日早晨）
+
+# ==================== RSS 订阅源 ====================
+rss_sources:
+  # 中文科技媒体
+  - name: "爱范儿"
+    url: "http://www.ifanr.com/feed"
+    lang: "zh"
+    max_items: 5  # 每个源最多抓取几条
+
+  # 英文技术社区
+  - name: "Reddit r/technology"
+    url: "https://www.reddit.com/r/technology/.rss"
+    lang: "en"
+    max_items: 5
+
+  - name: "HackerNews"
+    url: "https://hnrss.org/frontpage?points=50"
+    lang: "en"
+    max_items: 5
+
+  - name: "Product Hunt"
+    url: "https://www.producthunt.com/feed"
+    lang: "en"
+    max_items: 5
+
+# 更多推荐源（取消注释即可使用）：
+#  - name: "36氪"
+#    url: "https://36kr.com/feed"
+#    lang: "zh"
+#    max_items: 5
+#
+#  - name: "少数派"
+#    url: "https://sspai.com/feed"
+#    lang: "zh"
+#    max_items: 5
+#
+#  - name: "TechCrunch"
+#    url: "https://techcrunch.com/feed/"
+#    lang: "en"
+#    max_items: 5
+#
+#  - name: "The Verge"
+#    url: "https://www.theverge.com/rss/index.xml"
+#    lang: "en"
+#    max_items: 5
+
+# ==================== 内容设置 ====================
+content:
+  # 时间范围：抓取过去多少小时的文章
+  hours_back: 24
+
+  # 每封邮件最多显示多少条
+  max_entries: 12
+
+  # 摘要设置
+  summary:
+    # 是否使用 AI 生成摘要
+    enabled: true
+
+    # AI 模型
+    model: "moonshot-v1-8k"
+
+    # 摘要最大字数
+    max_length: 25
+
+    # 失败时的 fallback 策略
+    fallback: "original"  # original = 使用 RSS 原始摘要
+
+# ==================== 邮件设置 ====================
+email:
+  # 邮件主题
+  subject: "📰 科技日报"
+
+  # 发件人显示名称
+  from_name: "Daily Digest Bot"
+
+  # SMTP 服务器（默认 Gmail）
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+
+  # 收件人（默认使用 EMAIL_USERNAME 相同的地址）
+  # 如需发送到其他邮箱，取消下面注释并填写：
+  # to: "your-email@example.com"
+
+# ==================== 高级设置 ====================
+advanced:
+  # API 调用间隔（秒），避免限流
+  api_delay: 1
+
+  # 是否开启详细日志
+  debug: false
+
+  # 网页内容提取超时（秒）
+  fetch_timeout: 15
+
+  # Kimi API 超时（秒）
+  api_timeout: 30
