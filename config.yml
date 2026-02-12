@@ -85,7 +85,7 @@ content:
   hours_back: 24
 
   # 每封邮件最多显示多少条
-  max_entries: 15
+  max_entries: 45
 
   # 摘要设置
   summary:
