@@ -1,4 +1,4 @@
-name: Daily Tech Digest - Kimi Code Fixed
+name: Daily Tech Digest
 
 on:
   schedule:
@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install feedparser requests python-dateutil
+      - run: pip install feedparser requests python-dateutil pyyaml
 
       - name: Generate Digest
         env:
@@ -39,15 +39,20 @@ jobs:
               print("ERROR: KIMI_API_KEY not found")
               sys.exit(1)
 
-          # Moonshot 官方 API - 使用标准模型
+          # Moonshot 官方 API
           API_URL = "https://api.moonshot.cn/v1/chat/completions"
-          MODEL = "moonshot-v1-8k"  # 标准版，兼容性最好
+          MODEL = "moonshot-v1-8k"
 
           RSS_SOURCES = {
-              "爱范儿": "http://www.ifanr.com/feed",
-              "Reddit r/technology": "https://www.reddit.com/r/technology/.rss",
-              "HackerNews": "https://hnrss.org/frontpage?points=50",
-              "Product Hunt": "https://www.producthunt.com/feed",
+            "爱范儿": "http://www.ifanr.com/feed",
+            "36氪": "https://36kr.com/feed",
+            "机器之心": "https://www.jiqizhixin.com/rss",
+            "Reddit r/technology": "https://www.reddit.com/r/technology/.rss",
+            "HackerNews": "https://hnrss.org/frontpage?points=50",
+            "Product Hunt": "https://www.producthunt.com/feed",
+            "The Verge": "https://www.theverge.com/rss/index.xml",
+            "Ars Technica": "https://arstechnica.com/feed/",
+            "MIT Technology Review": "https://www.technologyreview.com/feed/"
           }
 
           def clean_text(text):
@@ -60,7 +65,6 @@ jobs:
 
           def get_content(url):
               try:
-                  # 修复：处理 URL 协议，避免 https://r.jina.ai/http://https://... 的错误
                   if url.startswith('http://') or url.startswith('https://'):
                       jina_url = "https://r.jina.ai/" + url
                   else:
@@ -81,7 +85,6 @@ jobs:
                       "Content-Type": "application/json"
                   }
 
-                  # 构建 prompt，避免 f-string 冲突
                   prompt_text = "用一句话（不超过25个字）总结这篇科技新闻：\n\n标题：" + title + "\n内容：" + content[:1000] + "\n\n要求：只说核心事实，不要本文文章等词。摘要："
 
                   payload = {
@@ -170,14 +173,14 @@ jobs:
           html_parts.append('<p>过去24小时共 <strong>' + str(len(entries)) + '</strong> 条精选</p>')
 
           current = None
-          for e in entries[:12]:
+          for e in entries[:15]:
               if e['source'] != current:
                   current = e['source']
                   html_parts.append('<h2>' + current + '</h2>')
               html_parts.append('<div class="item"><a href="' + e['link'] + '" class="title">' + html.escape(e['title']) + '</a>')
               html_parts.append('<div class="summary">📝 ' + html.escape(e['summary']) + '</div></div>')
 
-          html_parts.append('<div class="footer">🤖 摘要由 Kimi Code 生成<br>GitHub Actions 自动推送</div>')
+          html_parts.append('<div class="footer">🤖 摘要由 Kimi AI 生成<br>📧 GitHub Actions 自动推送</div>')
           html_parts.append('</body></html>')
 
           with open('digest.html', 'w', encoding='utf-8') as f:
@@ -197,3 +200,7 @@ jobs:
           html_body: file://digest.html
           to: ${{ secrets.EMAIL_USERNAME }}
           from: Daily Digest Bot
+
+# 配置文件: config.yml
+# 生成时间: 2026-02-12 20:46:34
+# 由 generate_workflow.py 自动生成
