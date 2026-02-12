@@ -16,48 +16,68 @@ schedule:
 
 # ==================== RSS 订阅源 ====================
 rss_sources:
-  # 中文科技媒体
+  # 🇨🇳 中文科技媒体
   - name: "爱范儿"
     url: "http://www.ifanr.com/feed"
     lang: "zh"
-    max_items: 5  # 每个源最多抓取几条
+    max_items: 3
 
-  # 英文技术社区
+  - name: "36氪"
+    url: "https://36kr.com/feed"
+    lang: "zh"
+    max_items: 3
+
+  - name: "机器之心"
+    url: "https://www.jiqizhixin.com/rss"
+    lang: "zh"
+    max_items: 3
+
+  # 🇺🇸 英文技术媒体
   - name: "Reddit r/technology"
     url: "https://www.reddit.com/r/technology/.rss"
     lang: "en"
-    max_items: 5
+    max_items: 3
 
   - name: "HackerNews"
     url: "https://hnrss.org/frontpage?points=50"
     lang: "en"
-    max_items: 5
+    max_items: 3
 
   - name: "Product Hunt"
     url: "https://www.producthunt.com/feed"
     lang: "en"
-    max_items: 5
+    max_items: 3
+
+  - name: "The Verge"
+    url: "https://www.theverge.com/rss/index.xml"
+    lang: "en"
+    max_items: 3
+
+  - name: "Ars Technica"
+    url: "https://arstechnica.com/feed/"
+    lang: "en"
+    max_items: 3
+
+  - name: "MIT Technology Review"
+    url: "https://www.technologyreview.com/feed/"
+    lang: "en"
+    max_items: 3
 
 # 更多推荐源（取消注释即可使用）：
-#  - name: "36氪"
-#    url: "https://36kr.com/feed"
-#    lang: "zh"
-#    max_items: 5
-#
 #  - name: "少数派"
 #    url: "https://sspai.com/feed"
 #    lang: "zh"
-#    max_items: 5
+#    max_items: 3
 #
 #  - name: "TechCrunch"
 #    url: "https://techcrunch.com/feed/"
 #    lang: "en"
-#    max_items: 5
+#    max_items: 3
 #
-#  - name: "The Verge"
-#    url: "https://www.theverge.com/rss/index.xml"
+#  - name: "Wired"
+#    url: "https://www.wired.com/feed/rss"
 #    lang: "en"
-#    max_items: 5
+#    max_items: 3
 
 # ==================== 内容设置 ====================
 content:
@@ -65,7 +85,7 @@ content:
   hours_back: 24
 
   # 每封邮件最多显示多少条
-  max_entries: 12
+  max_entries: 15
 
   # 摘要设置
   summary:
