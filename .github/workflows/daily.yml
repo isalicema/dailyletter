@@ -1,8 +1,9 @@
 name: Daily Tech Digest
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
+  # 定时已暂停
+  # schedule:
+  #   - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
@@ -173,7 +174,7 @@ jobs:
           html_parts.append('<p>过去24小时共 <strong>' + str(len(entries)) + '</strong> 条精选</p>')
 
           current = None
-          for e in entries[:15]:
+          for e in entries[:45]:
               if e['source'] != current:
                   current = e['source']
                   html_parts.append('<h2>' + current + '</h2>')
@@ -202,5 +203,5 @@ jobs:
           from: Daily Digest Bot
 
 # 配置文件: config.yml
-# 生成时间: 2026-02-12 20:46:34
+# 生成时间: 2026-02-12 21:21:05
 # 由 generate_workflow.py 自动生成
